@@ -1,17 +1,24 @@
 const express = require('express');
-const path = require('path');
 const port = parseArg();
-const app = express();
+
+const home_route = require('./routes/homeRoute')
+const user_route = require('./routes/userRoute')
+const not_user_route = require('./routes/notUserRoute')
 
 // Включение сервера
-app.use(express.static(path.join(__dirname, 'public')));
-app.get("/", (req, res) => {
-    res.sendFile(`${__dirname}/ui/index.html`);
-});
+const app = express();
+
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
+
+// Прописываю маршуртизацию
+app.use(home_route);
+app.use(user_route);
+app.use(not_user_route)
+
 app.listen(port, () => {
     console.log(`Веб приложение запущено на http://localhost:${port}`);
 });
-
 
 // Парсинг аргументов
 function parseArg() {

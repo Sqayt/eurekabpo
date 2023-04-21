@@ -14,15 +14,17 @@ const exec_net_user = (callback) => {
     );
 }
 
-const users = (callback) => (exec_net_user((err, res) => {
-    if (err) {
-        console.log(`Error: ${err}`);
-    } else {
-        callback(res
-            .slice(res.lastIndexOf('-') + 1, res.indexOf('Команда выполнена успешно'))
-            .match(/([A-Za-zА-Яа-я0-9_]+)/g)
-        );
-    }
-}));
+const users = (callback) => {
+    ( exec_net_user((err, res) => {
+        if (err) {
+            console.log(`Error: ${err}`);
+        } else {
+            callback(res
+                .slice(res.search(/-{79}/) + 79, res.indexOf('Команда выполнена успешно'))
+                .match(/([A-Za-zА-Яа-я0-9_\-]+)/g)
+            );
+        }
+    }));
+}
 
-module.exports = users;
+module.exports.getMessage = users;
