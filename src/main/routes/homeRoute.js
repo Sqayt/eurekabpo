@@ -13,11 +13,13 @@ route.get('/', (req, res) => {
 route.post('/', (req, res) => {
     let username = req.body.username;
 
-    if (username === "" || users.getMessage(callback => callback.include(username))) {
-        return res.redirect('/notUser');
-    } else {
-        return res.redirect('/user');
-    }
+    users.getMessage((user) => {
+        if (user.includes(username)) {
+            return res.redirect("/user");
+        } else {
+            return res.redirect("/notUser");
+        }
+    })
 });
 
 module.exports = route;

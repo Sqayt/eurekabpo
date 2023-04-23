@@ -15,7 +15,7 @@ const exec_net_user = (callback) => {
 }
 
 const users = (callback) => {
-    ( exec_net_user((err, res) => {
+    (exec_net_user((err, res) => {
         if (err) {
             console.log(`Error: ${err}`);
         } else {

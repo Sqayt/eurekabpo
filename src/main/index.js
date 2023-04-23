@@ -11,6 +11,9 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 
+// Прописываю css файл
+app.use(express.static(__dirname + '/views/styles'))
+
 // Прописываю маршуртизацию
 app.use(home_route);
 app.use(user_route);
